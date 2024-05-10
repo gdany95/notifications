@@ -1,0 +1,36 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  application:
+    name: notifications
+  datasource:
+    url: jdbc:postgresql://localhost:5432/notifications
+    username: postgres
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:9000
+      client:
+        registration:
+          authorities-reader:
+            provider: spring
+            client-id: authorities-reader
+            client-secret: authorities-reader
+            authorization-grant-type: client_credentials
+            client-authentication-method: client_secret_post
+            client-name: authorities-reader
+            scope: authorities.read
+        provider:
+          spring:
+            issuer-uri: http://localhost:9000
+server:
+  port: 8090
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
